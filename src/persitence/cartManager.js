@@ -1,5 +1,5 @@
-const fs = require("fs");
-const ProductManager = require("./productManager.js");
+import fs from "fs";
+import ProductManager from "../persitence/productManager.js";
 const pathProducts = "src/db/products.json";
 const myProductManager = new ProductManager(pathProducts);
 
@@ -121,4 +121,4 @@ class CartManager {
   }
 }
 
-module.exports = CartManager;
+export default CartManager;

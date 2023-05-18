@@ -1,14 +1,14 @@
-const { Router } = require("express");
+import { Router } from "express";
 const router = Router();
-const ProductManager = require("./../productManager.js");
+import ProductManager from "../persitence/productManager.js";
 const path = "src/db/products.json";
 const myProductManager = new ProductManager(path);
-const validateNumber = require("./../utils/helpers.js").validateNumber;
-const {
+import { validateNumber } from "./../utils/helpers.js";
+import {
   validateRequest,
   validateNumberParams,
   validateCodeNotRepeated,
-} = require("./../middleware/validators.js");
+} from "./../middleware/validators.js";
 
 router.get("/", async (req, res) => {
   try {
@@ -119,4 +119,4 @@ router.delete("/:id", validateNumberParams, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

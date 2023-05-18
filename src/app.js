@@ -1,12 +1,43 @@
-const express = require("express");
+import express from "express";
+import morgan from "morgan";
+import { Server } from "socket.io";
+import http from "http";
+import cors from "cors";
+import productRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
+import websockets from "./websockets/websockets.js";
+
+/** ★━━━━━━━━━━━★ variables ★━━━━━━━━━━━★ */
+
 const app = express();
 const PORT = 8080 || process.env.PORT;
-const productRoutes = require("./routes/productRoutes.js");
-const cartRoutes = require("./routes/cartRoutes.js");
 
+/** ★━━━━━━━━━━━★ connection server ★━━━━━━━━━━━★ */
+
+/** Tenemos dos servidores:  httpServer (http) y io (websocket)*/
+const httpServer = http.createServer(app);
+
+/** Crear nuevo servidor websocket */
+const io = new Server(httpServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+/** ★━━━━━━━━━━━★ middlewares ★━━━━━━━━━━━★*/
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static("src/public"));
+app.use(
+  cors({
+    origin: "*",
+    methods: "GET, POST, PUT, DELETE, OPTIONS",
+  })
+);
+
+/** ★━━━━━━━━━━━★ routes ★━━━━━━━━━━━★ */
 
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
@@ -18,12 +49,13 @@ app.get("*", (req, res) => {
   });
 });
 
-try {
-  app.listen(PORT, () =>
-    console.log(
-      `🚀 Server started on PORT ${PORT} at ${new Date().toLocaleString()}`
-    )
-  );
-} catch (error) {
-  console.log("Error al iniciar servidor", error);
-}
+/** ★━━━━━━━━━━━★ websockets ★━━━━━━━━━━━★*/
+websockets(io);
+
+const server = app.listen(PORT, () =>
+  console.log(
+    `🚀 Server started on port ${PORT}. 
+      at ${new Date().toLocaleString()}`
+  )
+);
+server.on("error", (err) => console.log(err));

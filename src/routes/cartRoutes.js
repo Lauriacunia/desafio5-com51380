@@ -1,7 +1,6 @@
-const { Router } = require("express");
+import { Router } from "express";
 const router = Router();
-const CartManager = require("../cartManager.js");
-const { validateNumber } = require("./../utils/helpers.js");
+import CartManager from "../persitence/cartManager.js";
 const path = "./src/db/carts.json";
 const myCartsManager = new CartManager(path);
 
@@ -98,4 +97,4 @@ router.put("/:idCart/products/:idProduct", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

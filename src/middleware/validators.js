@@ -1,4 +1,4 @@
-const ProductManager = require("../productManager.js");
+import ProductManager from "../persitence/productManager.js";
 const path = "src/db/products.json";
 const myProductManager = new ProductManager(path);
 
@@ -50,8 +50,4 @@ const validateNumberParams = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  validateRequest,
-  validateNumberParams,
-  validateCodeNotRepeated,
-};
+export { validateRequest, validateNumberParams, validateCodeNotRepeated };
