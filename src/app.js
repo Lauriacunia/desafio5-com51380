@@ -6,6 +6,7 @@ import cors from "cors";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import websockets from "./websockets/websockets.js";
+import exphbs from "express-handlebars";
 
 /** ★━━━━━━━━━━━★ variables ★━━━━━━━━━━━★ */
 
@@ -37,8 +38,15 @@ app.use(
   })
 );
 
-/** ★━━━━━━━━━━━★ routes ★━━━━━━━━━━━★ */
+/** ★━━━━━━━━━━━★ frontend ★━━━━━━━━━━━★*/
+app.engine("handlebars", exphbs.engine());
+app.set("view engine", "handlebars");
+app.set("views", "views");
 
+/** ★━━━━━━━━━━━★ routes ★━━━━━━━━━━━★ */
+app.get("/", (req, res) => {
+  res.render("home");
+});
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 
