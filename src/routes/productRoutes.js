@@ -14,7 +14,7 @@ import multer from "multer";
 // 'photo' es el nombre del campo en el formulario.
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/uploads");
+    cb(null, "src/public/uploads");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -78,7 +78,6 @@ router.post("/", validateRequest, validateCodeNotRepeated, async (req, res) => {
     console.log(photo);
     //  antes de guardar el objeto le añado la propiedad para que se pueda acceder a la foto.
     newProduct.thumbnail = "/uploads/" + photo.filename;
-
     const productCreated = await myProductManager.addProduct(newProduct);
     console.log(productCreated);
     res.redirect("/");
