@@ -4,6 +4,7 @@ const myProductManager = new ProductManager(path);
 
 const validateRequest = (req, res, next) => {
   const keysBody = Object.keys(req.body);
+  console.log("keysBody", keysBody);
   //verificar que title,description,code, price, stock y category existan en la request
   const requiredKeys = [
     "title",
