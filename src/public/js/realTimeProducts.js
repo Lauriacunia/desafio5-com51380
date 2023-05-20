@@ -29,6 +29,10 @@ form.addEventListener("submit", (event) => {
 socket.on("refresh-products", (data) => {
   console.log("refresh-products", data);
   window.location.reload();
+  /**Esto podría hacerse mas elegante y crear un template
+   * para agregar el nuevo producto a la vista sin tener que
+   * recargar la página. (pero me da fiaca)
+   */
 });
 
 function deleteProduct(id) {
