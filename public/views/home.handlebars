@@ -120,9 +120,7 @@
 {{! LISTA DE PRODUCTOS }}
 
 <section class="mt-6">
-  <div
-    class="container is-flex is-justify-content-space-between is-flex-wrap-wrap"
-  >
+  <div class="container is-flex is-flex-wrap-wrap">
     {{#each products}}
       <div class="card" style="width: 150px; margin: 20px">
         <div class="card-image" style="padding: 15px">
@@ -134,9 +132,16 @@
           <div class="media">
             <div class="media-content">
               <p class="title is-6">{{title}}</p>
+              <p class="title is-4">{{description}}</p>
               <p class="subtitle is-6">{{price}}</p>
             </div>
           </div>
+          <button
+            class="button is-small"
+            type="button"
+            onclick="deleteProduct({{id}})"
+          ><ion-icon name="trash"></ion-icon></button>
+
         </div>
       </div>
     {{/each}}
