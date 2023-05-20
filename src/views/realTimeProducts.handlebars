@@ -1,7 +1,8 @@
 {{! FORMULARIO DE CREACIÓN DE PRODUCTOS }}
 <section>
   <div class="container mt-6" style="max-width: 500px">
-    <form action="/api/products" method="post" enctype="multipart/form-data">
+    <form id="form">
+      {{! Ésta es la diferencia con home que hace http post a la api }}
       <h3 class="is-size-3 mb-5">Ingrese un nuevo producto</h3>
       <div class="field">
         <label class="label">Nombre</label>
@@ -86,19 +87,15 @@
       </div>
 
       <div class="field">
-        <div class="file is-boxed">
-          <label class="file-label">
-            <input class="file-input" type="file" name="thumbnail" />
-            <span class="file-cta">
-              <span class="file-icon">
-                <ion-icon
-                  name="cloud-upload-outline"
-                  style="font-size: 25px"
-                ></ion-icon>
-              </span>
-              <span class="file-label"> Sube una imágen </span>
-            </span>
-          </label>
+        <label class="label">Imágen</label>
+        <div class="control has-icons-left has-icons-right">
+          <input
+            class="input is-success"
+            type="text"
+            placeholder="Ingrese una url con la imágen del producto"
+            value=""
+            name="thumbnail"
+          />
         </div>
       </div>
       <div class="field is-grouped">
@@ -141,4 +138,5 @@
   </div>
 </section>
 
-<script src="/js/home.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>
